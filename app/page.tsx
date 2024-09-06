@@ -1,29 +1,43 @@
 'use client'
 import CountButton from '@/components/count-button'
-import RepeatsCounter from '@/components/repeats-counter'
+import RepsButton from '@/components/reps-button'
+import SetsCounter from '@/components/sets-counter'
+import TotalReps from '@/components/total-reps'
 import { useState, useEffect } from 'react'
-
+// i love my life as it is - developer note
 export default function Home() {
-  const [count, setCount] = useState(0)
+  const [currentReps, setCurrentReps] = useState(0)
   const [repeatsCount, setRepeatsCount] = useState(0)
+  const [totalReps, setTotalReps] = useState(0)
+  const [repsInSet, setRepsInSet] = useState(10)
 
   const handleCount = () => {
-    setCount((prev) => prev + 1)
+    setCurrentReps((prev) => prev + 1)
   }
+
   useEffect(() => {
-    if (count >= 8) {
+    currentReps !== 0 && setTotalReps(totalReps + 1)
+    //if currentReps get the total amount of reps in set
+    if (currentReps >= repsInSet) {
       setRepeatsCount((prev) => prev + 1)
-      setCount(0)
+      setCurrentReps(0)
     }
-  }, [count])
+  }, [currentReps])
 
   return (
-    <main className="flex items-center justify-center h-dvh flex-col">
+    <main className="flex items-center justify-around h-dvh flex-col">
+      <RepsButton
+        repsInSet={repsInSet}
+        setRepsInSet={setRepsInSet}
+      />
       <CountButton
-        count={count}
+        count={currentReps}
         handleCount={handleCount}
       />
-      <RepeatsCounter repeatsCount={repeatsCount} />
+      <div className="flex items-center justify-around w-full">
+        <SetsCounter repeatsCount={repeatsCount} />
+        <TotalReps totalReps={totalReps} />
+      </div>
     </main>
   )
 }
