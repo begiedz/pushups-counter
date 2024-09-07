@@ -7,7 +7,7 @@ const RepsButton = ({ repsInSet, setRepsInSet }: RepsButtonProps) => {
   const decrement = () => setRepsInSet(repsInSet > 1 ? repsInSet - 1 : 1)
   return (
     <section className="text-center space-y-2">
-      <p>Set amound of reps</p>
+      <p>Set the amount of reps</p>
       <div className="flex gap-4 *:bg-slate-500 *:rounded *:p-3 *:text-3xl *:size-16 *:flex *:items-center *:justify-center">
         <button onClick={decrement}>-</button>
         <div>{repsInSet}</div>
